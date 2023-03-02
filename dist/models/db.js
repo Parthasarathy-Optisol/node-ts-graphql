@@ -12,23 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.book = void 0;
-const books_1 = __importDefault(require("../models/books"));
-const redis_cache_1 = require("../redisCache/redis.cache");
-const findBook = () => __awaiter(void 0, void 0, void 0, function* () {
-    let result = yield (0, redis_cache_1.GetDataFromCache)("book");
-    if (result) {
-        return result;
-    }
-    else {
-        result = yield books_1.default.find().exec();
-        yield (0, redis_cache_1.SetDataToCache)("book", result);
-        return result;
-    }
+const mongoose_1 = __importDefault(require("mongoose"));
+const loadEnv_1 = __importDefault(require("../config/loadEnv"));
+const uri = (0, loadEnv_1.default)().MONGODB_URI;
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield mongoose_1.default.connect(uri);
 });
-exports.book = findBook()
-    .then((data) => {
-    return data;
-})
-    .catch((error) => console.error(error));
-//# sourceMappingURL=data.js.map
+main()
+    .then(() => console.log("mongo db connected"))
+    .catch(error => console.error(error));
+//# sourceMappingURL=db.js.map

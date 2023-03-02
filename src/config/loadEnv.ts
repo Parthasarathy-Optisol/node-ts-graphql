@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 const loadEnv = () => {
-  dotenv.config();
+  return dotenv.config().parsed;
 };
 
 export default loadEnv;

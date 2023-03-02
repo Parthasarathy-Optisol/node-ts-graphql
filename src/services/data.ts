@@ -1,4 +1,21 @@
-import { Book } from "../models";
-import books from "../data.json";
+import { Book } from "../interface";
+import BookModel from "../models/books";
+import { GetDataFromCache, SetDataToCache } from "../redisCache/redis.cache";
+import { Books } from "../schemas";
 
-export const book: Book[] = books;
+const findBook = async () => {
+  let result: Books[] | any = await GetDataFromCache("book");
+  if (result) {
+    return result;
+  } else {
+    result = await BookModel.find().exec();
+    await SetDataToCache("book", result);
+    return result;
+  }
+};
+
+export const book: Book[] | any = findBook()
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => console.error(error));
