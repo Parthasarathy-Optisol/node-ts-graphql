@@ -1,14 +1,8 @@
 import { APIServer } from "./server";
-import { DisconnectRedis } from "./redisCache/redis.cache";
 export * from "./models"
 
 const server = new APIServer();
 server.start();
-
-process.on("exit", function(){
-    console.log("enter exit function-->")
-    DisconnectRedis();
-});
 
 /**
  * Old CODE ------------------

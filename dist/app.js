@@ -15,14 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("./server");
-const redis_cache_1 = require("./redisCache/redis.cache");
 __exportStar(require("./models"), exports);
 const server = new server_1.APIServer();
 server.start();
-process.on("exit", function () {
-    console.log("enter exit function-->");
-    (0, redis_cache_1.DisconnectRedis)();
-});
 /**
  * Old CODE ------------------
  */

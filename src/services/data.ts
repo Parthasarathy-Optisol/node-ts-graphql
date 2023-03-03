@@ -5,6 +5,7 @@ import { Books } from "../schemas";
 
 const findBook = async () => {
   let result: Books[] | any = await GetDataFromCache("book");
+  console.log("result from redis", result)
   if (result) {
     return result;
   } else {

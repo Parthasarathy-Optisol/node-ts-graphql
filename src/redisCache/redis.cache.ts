@@ -12,6 +12,7 @@ export const GetDataFromCache = async (key) => {
   if (cachedData) {
     console.log("Retrieved data from cache");
     return JSON.parse(cachedData);
+   
   }
 };
 
@@ -19,12 +20,12 @@ export const SetDataToCache = async (key, result) => {
   // Check if data is already in Redis cache
 
   // Store data in Redis cache for 1 hour
-  await client.set(key, JSON.stringify(result));
+  await client.set(key, JSON.stringify(result),{
+    EX: 1,
+});
 };
 
 export const DisconnectRedis = async () => {
-  // Check if data is already in Redis cache
 
-  // Store data in Redis cache for 1 hour
   await client.disconnect();
 };

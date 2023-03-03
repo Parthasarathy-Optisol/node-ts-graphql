@@ -26,12 +26,12 @@ exports.GetDataFromCache = GetDataFromCache;
 const SetDataToCache = (key, result) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if data is already in Redis cache
     // Store data in Redis cache for 1 hour
-    yield client.set(key, JSON.stringify(result));
+    yield client.set(key, JSON.stringify(result), {
+        EX: 1,
+    });
 });
 exports.SetDataToCache = SetDataToCache;
 const DisconnectRedis = () => __awaiter(void 0, void 0, void 0, function* () {
-    // Check if data is already in Redis cache
-    // Store data in Redis cache for 1 hour
     yield client.disconnect();
 });
 exports.DisconnectRedis = DisconnectRedis;

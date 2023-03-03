@@ -8,23 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.book = void 0;
-const books_1 = __importDefault(require("../models/books"));
 const redis_cache_1 = require("../redisCache/redis.cache");
 const findBook = () => __awaiter(void 0, void 0, void 0, function* () {
     let result = yield (0, redis_cache_1.GetDataFromCache)("book");
-    if (result) {
-        return result;
-    }
-    else {
-        result = yield books_1.default.find().exec();
-        yield (0, redis_cache_1.SetDataToCache)("book", result);
-        return result;
-    }
+    console.log("result from redis", result);
+    //   if (result) {
+    //     return result;
+    //   } else {
+    //     result = await BookModel.find().exec();
+    //     await SetDataToCache("book", result);
+    //     return result;
+    //   }
 });
 exports.book = findBook()
     .then((data) => {
